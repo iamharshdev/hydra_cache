@@ -1,5 +1,8 @@
 # Hydra Cache: The Ultimate Solution for Taming the Caching Chaos
 
+![image](https://github.com/iamharshdev/hydra_cache/assets/46974223/5ca1e942-13e6-4e6e-90c7-3823adc5ed7f)
+
+
 Yo, what's up my fellow Django devs? You know what really grinds my gears? Dealing with caching in web apps. It's like trying to catch a greased-up, naked guy in a pool of Vaseline. But fear not, my dudes, because Hydra Cache is here to save the day (and your sanity).
 
 ## The Legend
