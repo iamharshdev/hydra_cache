@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: hydra_cache
-Version: 0.1.0
+Version: 0.1.2
 Summary: A mixin that unleash the Kraken of DJANGO Caching Power
 Home-page: https://github.com/iamharshdev/hydra_cache
 Author: Harsh Vardhan Goswami

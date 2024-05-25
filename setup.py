@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="hydra_cache",
-    version="0.1.0",
+    version="0.1.2",
     author="Harsh Vardhan Goswami",
     author_email="me@iamharsh.dev",
     description="A mixin that unleash the Kraken of DJANGO Caching Power",

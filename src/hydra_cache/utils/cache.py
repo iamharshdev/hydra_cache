@@ -1,6 +1,6 @@
 from django.core.cache import cache
 
-from src.hydra_cache.utils.hasher import md5
+from hydra_cache.utils.hasher import md5
 
 
 def flush_cache_for_keys(_keys, pre_hash=None):

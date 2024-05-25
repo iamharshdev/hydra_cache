@@ -1,7 +1,9 @@
 from django.conf import settings
+from django.core.cache import cache
+from django.utils.cache import get_cache_key
 from django.views.decorators.cache import cache_page
 from django.views.decorators.vary import vary_on_headers
-from src.hydra_cache.utils.cache import flush_cache_for_keys
+from hydra_cache.utils.cache import flush_cache_for_keys
 
 
 class HydraCacheMixin:
@@ -15,6 +17,12 @@ class HydraCacheMixin:
     match_on_cache_key = False  # Whether to use the generated cache key for cache clearing
     clear_cache_keys = []  # List of cache keys to clear on POST, PUT, DELETE, PATCH
     cache_hash_header = True  # Whether to use the header value in the cache key hash
+
+    def get_cache_key(self, request):
+        """
+        Return the cache key for the request.
+        """
+        return get_cache_key(request, self.cache_key_prefix, "GET", cache=cache)
 
     @classmethod
     def as_view(cls, **initkwargs):
@@ -31,11 +39,10 @@ class HydraCacheMixin:
         """
        Clear the cache for the current request.
        """
-        cache_keys = self.clear_cache_keys if self.clear_cache_keys else [self.cache_key_prefix]
-        if self.match_on_cache_key:
-            cache_key = self.cache_key_prefix
-            cache_keys = [cache_key]
-        flush_cache_for_keys(cache_keys, request.META.get(f'HTTP_{self.vary_on_header.replace("-", "_").upper()}', ''))
+
+        cache_keys = self.clear_cache_keys if len(self.clear_cache_keys) > 0 else [self.cache_key_prefix]
+        cache_keys = cache_keys if self.match_on_cache_key else [self.get_cache_key(request)]
+        flush_cache_for_keys(cache_keys, request.META.get(f'HTTP_{self.vary_on_header.replace("-", "_").upper()}', '') if self.cache_hash_header else None)
 
     def dispatch(self, request, *args, **kwargs):
         """
